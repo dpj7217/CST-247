@@ -1,0 +1,50 @@
+﻿@model List<Activity2Part1.Models.UserModel>
+
+@{
+    ViewBag.Title = "Test";
+}
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<h2>Test</h2>
+
+
+
+@Html.Label("Welcome to Razor", new { @style = "font-family: Arial; font-size: 24px; width: 100%; text-align: center;",  })
+@Html.Label("My Customers Are: ", new { @style = "font-family: Arial; font-size: 18px; width: 100%; text-align: left;"})
+
+@Html.ActionLink("Refresh Page", "")
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Email Address</th>
+    </tr>
+    @foreach (Activity2Part1.Models.UserModel u in Model)
+    {
+        <tr>
+        <td>@Html.DisplayFor(Model => u.Name)</td>
+        <td>@Html.DisplayFor(Model => u.PhoneNumber)</td>
+        <td>@Html.DisplayFor(Model => u.EmailAddress)</td>
+        </tr>
+    }
+    
+</table>
