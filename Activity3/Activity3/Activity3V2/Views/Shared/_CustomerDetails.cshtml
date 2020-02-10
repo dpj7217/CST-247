@@ -1,0 +1,14 @@
+﻿@model Activity3V2.Models.CustomerModel
+
+@{
+    ViewBag.Title = "_CustomerDetails";
+}
+@Html.Label("Customer Details: ")
+<br />
+
+@Html.DisplayNameFor(Model => Model.Name):
+@Html.DisplayFor(Model => Model.Name)
+<br />
+
+@Html.DisplayNameFor(Model => Model.Age):
+@Html.Label(Model.Age.ToString())

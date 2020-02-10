@@ -1,0 +1,9 @@
+﻿@model Activity3.Models.CustomerModel
+
+@Html.Label("Customer Details: ")
+<br />
+@Html.DisplayNameFor(Model => Model.Name) 
+@Html.Label(Model.Name)
+<br />
+@Html.DisplayNameFor(Model => Model.Age)
+@Html.Label(Model.Age.ToString())

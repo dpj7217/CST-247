@@ -1,0 +1,69 @@
+﻿@model Tuple<List<Activity3V2.Models.CustomerModel>, Activity3V2.Models.CustomerModel>
+
+@{
+    var AjaxOption = new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "customerinfo", OnSuccess = "ajaxSuccess"};
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+</head>
+<body>
+    @Html.Label("Please Select a Customer: ")
+
+    @using (Ajax.BeginForm("OnSelectCustomer", "Customer", null, AjaxOption, new { @id = "myform" }))
+    {
+        foreach (Activity3V2.Models.CustomerModel cm in Model.Item1)
+        {
+            //<input type="radio" name="Customer" id="CustomerID" value="@cm.ID" onchange="this.form.submit()" />@cm.Name
+            //<br />
+
+            @Html.RadioButtonFor(m => cm.ID, cm.ID, new { @Name = "Customer", id = "CustomerID", onchange = "this.form.submit()" });
+            @cm.Name;
+            <br />
+        }
+    }
+
+
+    <div id="customerinfo">
+        @{ Html.RenderPartial("_CustomerDetails", Model.Item2); }
+    </div>
+</body>
+</html>
+
+<script language="text/javascript">
+    function updateCustomerInfo(result) {
+        alert(result);
+        $("#customerinfo").html(result); 
+    } 
+
+    function ajaxSuccess() {
+        $.post('@Url.Action("GetMoreInfo", "Customer")', { customer: 2 }, function (data) { alert(data); });
+    }
+    //function MySubmit() {
+    //    $("#myform").submit(function () {
+    //        alert($("#Customer").val())
+    //        $.ajax({
+    //            url: "/Controllers/OnSelectCustomer",
+    //            dataType: "html",
+    //            type: 'post',
+    //            data: { Customer: $("#Customer").val() },
+    //            success: function (data) {
+    //                $("#customerinfo").html(data);
+    //            },  // end success
+    //            error: function (xhr, ajaxOptions, thrownError) {
+    //                alert("Error: " + xhr.responseText + thr.toString());
+    //            } // End Error
+    //
+    //        });
+    //    }); // End House Ajax)
+    //
+    //})
+
+</script>

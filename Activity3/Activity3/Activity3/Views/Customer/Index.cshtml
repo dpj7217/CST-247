@@ -1,0 +1,142 @@
+﻿@model Tuple<List<Activity3.Models.CustomerModel>, Activity3.Models.CustomerModel> 
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions();
+    ajaxOptions.HttpMethod = "POST";
+    ajaxOptions.InsertionMode = InsertionMode.Replace;
+    ajaxOptions.UpdateTargetId = "customerinfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    
+</head>
+<body>
+
+
+
+
+    @Html.Label("Please Select a customer");
+
+
+    <!----------------------------
+    <                             >
+    <                             >
+    <                             >
+    <    All commentted code is   >
+    <    an attempt to perform    >
+    < according to the directions;>
+    <     none of it worked       >
+    <                             >
+    <                             >
+    <----------------------------->
+    @*  @using (Html.BeginForm("OnSelectCustomer", "Customer", FormMethod.Post, new { id = "myform" }))
+        {
+
+            /* FORM WOULDN'T SUBMIT WITH DATA*/
+            //for (int i = 0; i < Model.Item1.Count; i++)
+            //{
+            //    var cm = Model.Item1[i];
+            //
+            //    @Html.RadioButtonFor(Model => cm.ID, cm.ID, new { id = "CustomerID", @checked = "unchecked", onchange = "this.form.submit(@Model.Item1[i].ID)" })
+            //    @Model.Item1[i].Name
+            //    <br />
+            //}
+
+            /*TEST CODE (WORKED)*/
+            //<input type="radio" value="@Model.Item1[0].ID" name="Customer" id="CustomerID" onchange="this.form.submit(@Model.Item1[0].ID)" /> @Model.Item1[0].Name
+            //<input type="radio" value="@Model.Item1[1].ID" name="Customer" id="CustomerID" onchange="this.form.submit(@Model.Item1[1].ID)" /> @Model.Item1[1].Name
+            //<input type="radio" value="@Model.Item1[2].ID" name="Customer" id="CustomerID" onchange="this.form.submit(@Model.Item1[2].ID)" /> @Model.Item1[2].Name
+
+            /*FORM WOULDN'T SUBMIT WITH DATA*/
+            //foreach (Activity3.Models.CustomerModel cm in Model.Item1)
+            //{
+            //    int i = 0;
+            //    @Html.RadioButtonFor(Model => cm.ID, cm.ID, new { id = "CustomerID", @checked = "unchecked", onchange = "this.form.submit(@Model.Item1[i].ID)" })
+            //    @cm.Name
+            //    <br />
+            //
+            //    i++;
+            //}
+
+
+            /*WORKED*/
+            for (int i = 0; i < Model.Item1.Count; i++)
+            {
+                <input type="radio" value="@Model.Item1[i].ID" name="Customer" id="CustomerID" onchange="this.form.submit(@Model.Item1[i].ID)" /> <label for="CustomerID">@Model.Item1[i].Name</label>
+                <br />
+                /*ALL RADIO BUTTONS RENDERED SELECTED*/
+                //@Html.RadioButtonFor(Model => Model.Item1[i].ID, Model.Item1[i].ID, new { name = "Customer", id = "CustomerID", onchange = "this.form.submit(@Model.Item[i].ID)", @checked = "unchecked" });
+                //@Html.Label(Model.Item1[i].Name);
+                //<br />
+            }
+
+        }
+
+        <div id="customerinfo">
+            @Html.Partial("~/Views/Shared/_CustomerDetails.cshtml", Model.Item2)
+        </div>
+    *@
+
+
+    @using (Ajax.BeginForm("OnSelectCustomer", "Customer", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "customerinfo"
+    }, new { id="myform" }))
+    {
+        for (int i = 0; i < Model.Item1.Count; i++)
+        {
+            <input type="radio" value="@Model.Item1[i].ID" name="Customer" id="CustomerID" onchange="this.form.submit(@Model.Item1[i].ID)" /> <label for="CustomerID">@Model.Item1[i].Name</label>
+            <br />
+        }
+    }
+    <br />
+
+    <div id="customerinfo">
+        @Html.Partial("_CustomerDetails", Model.Item2)
+    </div>
+
+
+
+
+    @*    @using (Ajax.BeginForm("OnSelectCustomer", "Customer", new AjaxOptions
+        {
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "customerinfo"
+        }))
+        {
+        
+            /*
+            foreach (Activity3.Models.CustomerModel cm in Model.Item1)
+            {
+                var id = 1;
+                    @Html.RadioButtonFor(m => cm.ID, cm.ID, new { name = "Customer", id = "CusstomerID", onchange = "this.form.submit(id)" }); @cm.Name;
+                    <br />
+
+                    id++;
+                }
+            }
+            */
+    *@
+
+    <script type="text/javascript" language="javascript">
+        $("#CustomerID").click(function () {
+            alert("submitted with: " + $(this).val() + " customer id");
+            $("#myform").submit(function() {
+                
+            });
+        })
+        //can I get model data into jquery function????
+        //on button click, submit form, get results, update #customerinfo htmld
+    </script>
+
+
+</body>
+</html>
